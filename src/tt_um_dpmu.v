@@ -30,7 +30,7 @@ module tt_um_dpmu(
     assign temp_sensor = ui_in[2:1];
     assign battery_level = ui_in[4:3];
     assign workload_core = ui_in[7:5];
-    assign uio_in = 8'b0;
+    //assign uio_in = 8'b0;
 
     assign uio_out [0] = power_save;
     assign uio_out [2:1] = vcore1;
