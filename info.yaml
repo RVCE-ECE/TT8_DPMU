@@ -52,4 +52,4 @@ pinout:
   uio[7]: "uio_out[7]"
 
 # Do not change!
-yaml_version: 6
+yaml_version: 6
