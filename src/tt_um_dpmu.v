@@ -1,5 +1,5 @@
 `default_nettype none
-`timescale 1ns / 1ps
+
 module tt_um_dpmu(
      input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
@@ -10,7 +10,8 @@ module tt_um_dpmu(
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
-
+      wire _unused = &{uio_in};
+    wire _unused = &{ena};
     wire  perf_req; // 4-bit performance requirement signal
     wire [1:0] temp_sensor; // 2-bit temperature sensor input
     wire [1:0] battery_level; // 2-bit battery level input
@@ -26,23 +27,23 @@ module tt_um_dpmu(
 
     assign uio_oe = 8'b11111111;  // Assuming uio is always output in this context
     assign perf_req= ui_in[0];
-    assign temp_sensor = ui_in[3:2];
-    assign battery_level = ui_in[5:4];
-    assign workload_core = ui_in[7:6];
-    //assign uio_in = 8'b0;
+    assign temp_sensor = ui_in[2:1];
+    assign battery_level = ui_in[4:3];
+    assign workload_core = ui_in[7:5];
+    assign uio_in = 8'b0;
 
     assign uio_out [0] = power_save;
     assign uio_out [2:1] = vcore1;
     assign uio_out [4:3] = vcore2;
     assign uio_out [6:5] = vmem;
     assign uio_out [7] =  fcore1 [0];
-     assign uo_out [1:0] = fcore1 [2:1];
+    assign uo_out  [1:0] = fcore1 [2:1];
     assign uo_out  [4:2] = fcore2 [2:0];
     assign uo_out  [7:5] = fmem [2:0];
 
 
     // State encoding
-parameter NORMAL             = 3'b000;
+   parameter NORMAL             = 3'b000;
 parameter PERFORMANCE        = 3'b001;
 parameter POWERSAVE          = 3'b010;
 parameter THERMAL_MANAGEMENT = 3'b011;
@@ -51,20 +52,20 @@ parameter BATTERY_SAVING     = 3'b100;
 reg [2:0] state, next_state;
 
     // State transition logic
-     always @(posedge clk or negedge rst_n) begin
-          if (!rst_n)
+  always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
             state <= NORMAL;
         else
             state <= next_state;
      end
 
     // Next state logic and output logic
-  always @(* ) begin
+  always @(negedge clk ) begin
       case (state)
          NORMAL: begin
                   {vcore1, vcore2, vmem} = 6'b010101; // Default voltage levels
                   {fcore1, fcore2, fmem} = 9'b010010010; // Default frequency levels
-                  power_save = 1'b0;
+                  power_save =1'b0;
                   if (perf_req == 1'b1)
                     next_state = PERFORMANCE;
                   else if ((battery_level ==2'b00) || (battery_level ==2'b01) )
