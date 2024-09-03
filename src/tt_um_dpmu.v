@@ -64,7 +64,7 @@ reg [2:0] state, next_state;
          NORMAL: begin
                   {vcore1, vcore2, vmem} = 6'b010101; // Default voltage levels
                   {fcore1, fcore2, fmem} = 9'b010010010; // Default frequency levels
-                  power_save = 0;
+                  power_save = 1'b0;
                   if (perf_req == 1'b1)
                     next_state = PERFORMANCE;
                   else if ((battery_level ==2'b00) || (battery_level ==2'b01) )
@@ -85,7 +85,7 @@ reg [2:0] state, next_state;
                            next_state = PERFORMANCE;
                        end
             POWERSAVE: begin
-                         power_save = 1;
+                         power_save = 1'b1;
                          {vcore1, vcore2, vmem} = 6'b010101; // Reduced voltage levels
                          {fcore1, fcore2, fmem} = 9'b001000000; // Reduced frequency levels
                          if (workload_core == 3'b111)
@@ -94,7 +94,7 @@ reg [2:0] state, next_state;
                            next_state = POWERSAVE;
                        end
           THERMAL_MANAGEMENT: begin
-                                power_save = 0;
+                                power_save = 1'b0;
                                 {vcore1, vcore2, vmem} = 6'b101010; // Moderate voltage levels
                                 {fcore1, fcore2, fmem} = 9'b011011011; // Moderate frequency levels
                                 if (temp_sensor == 2'b01 || temp_sensor == 2'b00 )
@@ -103,7 +103,7 @@ reg [2:0] state, next_state;
                                   next_state = THERMAL_MANAGEMENT;
                                end
              BATTERY_SAVING: begin
-                               power_save = 1;
+                               power_save = 1'b1;
                                {vcore1, vcore2, vmem} = 6'b000000; // Minimum voltage levels
                                {fcore1, fcore2, fmem} = 9'b000000000; // Minimum frequency levels
                                if (battery_level == 2'b10  || battery_level == 2'b11)
