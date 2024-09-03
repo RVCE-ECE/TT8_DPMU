@@ -10,8 +10,8 @@ module tt_um_dpmu(
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
-      wire _unused = &{uio_in};
-    wire _unused = &{ena};
+     wire _unused = &{uio_in,ena};
+    
     wire  perf_req; // 4-bit performance requirement signal
     wire [1:0] temp_sensor; // 2-bit temperature sensor input
     wire [1:0] battery_level; // 2-bit battery level input
