@@ -42,15 +42,13 @@ module tt_um_dpmu(
 
 
     // State encoding
-    typedef enum reg [2:0] {
-        NORMAL = 3'b000,
-        PERFORMANCE = 3'b001,
-        POWERSAVE = 3'b010,
-        THERMAL_MANAGEMENT = 3'b011,
-        BATTERY_SAVING = 3'b100
-       } state_t;
+parameter NORMAL             = 3'b000;
+parameter PERFORMANCE        = 3'b001;
+parameter POWERSAVE          = 3'b010;
+parameter THERMAL_MANAGEMENT = 3'b011;
+parameter BATTERY_SAVING     = 3'b100;
 
-      state_t state, next_state;
+reg [2:0] state, next_state;
 
     // State transition logic
      always @(posedge clk or negedge rst_n) begin
