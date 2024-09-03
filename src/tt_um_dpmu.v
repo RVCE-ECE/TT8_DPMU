@@ -53,8 +53,8 @@ module tt_um_dpmu(
       state_t state, next_state;
 
     // State transition logic
-  always @(posedge clk or negedge reset) begin
-        if (!reset)
+     always @(posedge clk or negedge rst_n) begin
+          if (!rst_n)
             state <= NORMAL;
         else
             state <= next_state;
