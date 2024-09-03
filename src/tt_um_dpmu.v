@@ -36,7 +36,7 @@ module tt_um_dpmu(
     assign uio_out [4:3] = vcore2;
     assign uio_out [6:5] = vmem;
     assign uio_out [7] =  fcore1 [0];
-    assign uo_out  [0:1] = fcore1 [2:1];
+     assign uo_out [1:0] = fcore1 [2:1];
     assign uo_out  [4:2] = fcore2 [2:0];
     assign uo_out  [7:5] = fmem [2:0];
 
