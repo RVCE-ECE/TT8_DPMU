@@ -1,7 +1,7 @@
 # Tiny Tapeout project information
 project:
   title:        "DPMU"      # Project title
-  author:       "Sanjay Kumar M , Shylashree N , Neha Ravish Aradhya , R V College Of Engineeering"      # Your name
+  author:       "Sanjay Kumar M, Shylashree N, Ravish Aradhya H V, RV College Of Engineering, Neha R V, PES Unoversity"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  "Design and Implementation of Dynamic Power management unit"      # One line description of what your project does
   language:     "SystemVerilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
